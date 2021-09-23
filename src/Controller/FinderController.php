@@ -175,9 +175,9 @@ class FinderController extends ControllerBase {
 
                         //var_dump($paragraph->get($machine_name)->getValue()[0]["value"]); echo("<br>");
                     }
-                    
 
-                    $field_config = \Drupal::entityManager()->getStorage('field_config')->load("paragraph" . '.' . "service_paragraphs" . '.' . $machine_name)->toArray();
+
+                    $field_config = \Drupal::entityTypeManager()->getStorage('field_config')->load("paragraph" . '.' . "service_paragraphs" . '.' . $machine_name)->toArray();
 
                     $field_data["label"] = $field_config["label"];
                     $field_data["weight"] = $pdcontent[$machine_name]["weight"];
@@ -201,14 +201,14 @@ class FinderController extends ControllerBase {
         foreach ($services as $key=>$row){
             $title[$key] = $row["title"];
         }
-        array_multisort($title, SORT_ASC, $services);   
+        array_multisort($title, SORT_ASC, $services);
 
         return $services;
 
     }
 
     public function servicelist() {
-        $services = $this->createtestservicelist();      
+        $services = $this->createtestservicelist();
         return new JsonResponse($services);
     }
 
@@ -351,7 +351,7 @@ class FinderController extends ControllerBase {
         CURLOPT_AUTOREFERER    => true,   // set referrer on redirect
         CURLOPT_CONNECTTIMEOUT => 120,    // time-out on connect
         CURLOPT_TIMEOUT        => 120,    // time-out on response
-    ); 
+    );
 
     $ch = curl_init($url);
     curl_setopt_array($ch, $options);
